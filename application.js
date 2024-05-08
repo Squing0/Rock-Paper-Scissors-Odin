@@ -1,33 +1,83 @@
-// function add7(num){
-//     return num + 7;
-// }
-// function multiply(num1, num2){
-//     return num1 * num2;
-// }
-// function capitalize(message){
-//     message = message.toLowerCase();
-//     message = message[0].toUpperCase() + message.slice(1);
-//     return message;
-// }
-// function lastLetter(message){
-//     return message.charAt(-1);
-// }
-// console.log(lastLetter("abcd"))
+let humanScore = 0;
+let computerScore = 0;
+let drawScore = 0;
 
-let answer = parseInt(prompt("Enter number:"));
+function getComputerChoice(){
+    let comChoice = Math.floor(Math.random() * 3) + 1;
 
-for(let i = 1; i < answer; i++){
-    if(i % 3 == 0 && i % 5 == 0){
-        console.log("FizzBuzz");
-        continue;
+    return decideChoice(comChoice);
+}
+
+function getHumanChoice(){
+    let userChoice = prompt("Enter rock, paper or scissors.")
+
+    if(userChoice === null){
+        return "Nothing";
     }
-    else if(i % 5 == 0){
-        console.log("Buzz")
+    userChoice = userChoice.toLowerCase();
+
+    return decideChoice(userChoice);
+}
+
+function decideChoice(choice){
+    switch(choice){
+        case 1:
+            return "Rock";
+        case 2:
+            return "Scissors";
+        case 3:
+            return "Paper";
+        case "rock":
+            return "Rock"
+        case "paper":
+            return "Paper";
+        case "scissors":
+            return "Scissors";
+        default:
+            return "Nothing";      
     }
-    else if(i % 3 == 0){
-        console.log("Fizz")
+}
+
+function playRound(userChoice, comChoice){
+    if(userChoice == "Nothing"){
+        return "Incorrect Input";
+    }
+
+    if(userChoice == comChoice){
+        drawScore++;
+        return "Draw!";    
+    }
+
+    if(userChoice == "Rock" && comChoice == "Scissors" || 
+    userChoice == "Scissors" && comChoice == "Paper" || 
+    userChoice == "Paper" && comChoice == "Rock"){
+        humanScore++;
+        return `You Win! ${userChoice} beats ${comChoice}`;    
     }
     else{
-        console.log(i);
+        computerScore++;
+        return `You lose! ${comChoice} beats ${userChoice}`
     }
-10}
+}
+
+function playGame(){
+    for(let i = 0; i < 5; i++){
+        console.log(playRound(getHumanChoice(), getComputerChoice()));
+    }
+
+    if(humanScore > computerScore){
+        console.log(`You Win. You won ${humanScore} rounds.
+        The computer won ${computerScore} rounds.
+        There were ${drawScore} draws.`)
+    }
+    else if (humanScore < computerScore){
+        console.log(`You lose. You won ${humanScore} rounds. 
+        The computer won ${computerScore} rounds.
+        There were ${drawScore} draws.`)
+    }
+    else{
+        console.log("Each round was a draw!")
+    }
+}
+
+playGame();
