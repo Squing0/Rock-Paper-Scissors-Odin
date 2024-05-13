@@ -5,69 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="./application.js" defer></script>
-    <style>
-        #resetBtn {
-            visibility: hidden;
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+          theme:{
+            extend:{
+              colors:{
+                "nutmeg": "hsl(14, 45%, 36%)",
+                "darkRaspberry": "hsl(332, 51%, 32%)",
+                "roseWhite": "hsl(330, 100%, 98%)",
+                "eggShell": "hsl(30, 54%, 90%)",
+                "lightGrey": "hsl(30, 18%, 87%)",
+                "wengeBrown": "hsl(30, 10%, 34%)",
+                "darkCharcoal": "hsl(24, 5%, 18%)",
+              },
+              fontFamily:{
+                "youngSerif": ["Young Serif", "sans-serif"],
+                "outfit": ["Outfit", "sans-serif"],
+              },
+              screens:{
+                "phoneS": {"max": "400px"},
+                "tabletS": {"max": "700px"},
+              },
+              spacing:{
+                "fullScreen": "44rem",
+              },
+              borderWidth:{
+                "1": "1px",
+              },
+            }
+          }
         }
-    </style>
+      </script>
 </head>
-<body>
+<body class="phoneS:m-2">
     <header>
-        <h1>Geodude, Scizor, Ditto!</h1>
-        <h2>Choose your pokemon!</h2>
+        <h1 class="text-2xl font-bold">Geodude, Scizor, Ditto!</h1>
+        <h2 id="roundResultText" class="text-xl italic">Choose your pokemon!</h2>
     </header>
-    <section id="buttonContainer">
-        <button id="1">Geodude</button>
-        <button id="2">Ditto</button>
-        <button id="3">Scizor</button>
+    <section id="buttonContainer" class="flex space-x-3">
+        <button id="1" class="bg-red-200 hover:bg-red-400 rounded-full shrink relative h-32 w-80">
+            <img src="./assets/geodude.png" class="absolute inset-0 w-full h-full object-fill">
+        </button>
+        <button id="2" class="bg-red-200 hover:bg-red-400 rounded-full shrink relative h-32 w-80">
+            <img src="./assets/ditto.png" class="absolute inset-0 w-full h-full object-fill">
+        </button>
+        <button id="3" class="bg-red-200 hover:bg-red-400 rounded-full shrink relative h-32 w-80">
+            <img src="./assets/scizor.png" class="self-start w-full h-full object-fill">
+        </button>
     </section>
     <section>
-        <div>
+        <div class="flex">
             <h3>Player:</h3>
             <figure>
-                <img>
+                <img src="./assets/ditto.png" class="h-24" id="playerIcon">
             </figure>
-        </div>
-        <div>
             <h3>Enemy:</h3>
             <figure>
-                <img>
+                <img src="./assets/ditto.png" class="h-24" id="enemyIcon">
             </figure>
-        </div>   
+        </div>
     </section>
     <section>
-        <h3>HP:</h3>
-        <p></p>
-        <h3>EHP:</h3>
-        <p></p>
+        <div class="flex">
+            <h3>HP:</h3>
+            <div class="w-full bg-red-400 h-4 rounded-full">
+                <div id="playerHealth" class="bg-green-400 h-4 rounded-full" style="width: 100%"></div>
+            </div>
+        </div>
+        <div class="flex">
+            <h3>EP:</h3>
+            <div class="w-full bg-red-400 h-4 rounded-full">
+                <div id="enemyHealth" class="bg-green-400 h-4 rounded-full" style="width: 100%"></div>
+            </div>
+        </div>
+    </section>
+    <section class="bg-gray-200">
+        <div class="flex space-x-2">
+            <h3>Overall player wins:</h3>
+            <p id="playerWins">0</p>
+        </div>
+        <div class="flex space-x-1">
+            <h3>Overall enemy wins:</h3>
+            <p id="computerWins">0</p>
+        </div>
     </section>
     <section>
-        <h3>Overall player wins:</h3>
-        <p></p>
-        <h3>Overall enemy wins:</h3>
-        <p></p>
-    </section>
-    <section>
-        <h2>Results</h2>
-        <h2>Overall Player Wins:</h2>
-        <p id="playerWins">0</p>
-        <h2>Overall Computer Wins:</h2>
-        <p id="computerWins">0</p>
-        <h3 id="roundResultText">Round result:</h3>
-        <div>
-            <h3>Player Score</h3>
-            <p id="playerNum" class="scoreNum">0</p>
-        </div>
-        <div>
-            <h3>Draws</h3>
-            <p id="drawNum" class="scoreNum">0</p>
-        </div>
-        <div>
-            <h3>Computer Score</h3>
-            <p id="comNum" class="scoreNum">0</p>
-        </div>
         <h2 id="resultsText"></h2>
-        <button id="resetBtn">Reset</button>
+        <button id="resetBtn" class="invisible">Reset</button>
     </section>
 </body>
 </html>

@@ -1,10 +1,5 @@
 let playerScore = 0;
 let computerScore = 0;
-let drawScore = 0;
-
-const playerScoreDoc = document.querySelector("#playerNum");
-const comScoreDoc = document.querySelector("#comNum");
-const drawScoreDoc = document.querySelector("#drawNum");
 
 const resetBtn = document.querySelector("#resetBtn");
 
@@ -14,7 +9,14 @@ const playerWinsText = document.querySelector("#playerWins");
 const computerWinsText = document.querySelector("#computerWins");
 
 const buttons = document.querySelectorAll("button");
-const scores = document.querySelectorAll(".scoreNum");
+
+const playerHealth = document.querySelector("#playerHealth");
+const enemyHealth = document.querySelector("#enemyHealth");
+
+const playerIcon = document.querySelector("#playerIcon");
+const enemyIcon = document.querySelector("#enemyIcon");
+
+let healthFraction = enemyHealth.offsetWidth * 0.2;
 
 
 function getComputerChoice(){
@@ -22,11 +24,11 @@ function getComputerChoice(){
 
     switch(comChoice){
         case 1:
-            return "Rock";
+            return "Geodude";
         case 2:
-            return "Scissors";
+            return "Ditto";
         case 3:
-            return "Paper";
+            return "Scizor";
     }
 }
 
@@ -57,24 +59,31 @@ function endGame(){
 
 function playRound(playerChoice, comChoice){
     if(playerChoice == comChoice){
-        drawScore++;
-        incrementScore(drawScoreDoc);
         roundText.textContent = "Round result: Draw!";    
     }
-    else if(playerChoice == "Rock" && comChoice == "Scissors" || 
-    playerChoice == "Scissors" && comChoice == "Paper" || 
-    playerChoice == "Paper" && comChoice == "Rock"){
+    else if(playerChoice == "Geodude" && comChoice == "Scizor" || 
+    playerChoice == "Scizor" && comChoice == "Ditto" || 
+    playerChoice == "Ditto" && comChoice == "Geodude"){
         playerScore++;
-        incrementScore(playerScoreDoc);
+
+        let newWidth = Math.floor(enemyHealth.offsetWidth - healthFraction);
+        enemyHealth.style.width = `${newWidth + 1}px`;
+
         checkScore();
         roundText.textContent = `Round result: You Win! ${playerChoice} beats ${comChoice}`;    
     }
     else{
         computerScore++;
-        incrementScore(comScoreDoc);
+
+        let newWidth = Math.floor(playerHealth.offsetWidth - healthFraction);
+        playerHealth.style.width = `${newWidth + 1}px`;
+
         checkScore();
         roundText.textContent = `Round result: You lose! ${comChoice} beats ${playerChoice}`
     }
+
+    playerIcon.src = `./assets/${playerChoice}.png`;
+    enemyIcon.src = `./assets/${comChoice}.png`
 }
 
 function incrementScore(scoreText){
@@ -85,30 +94,28 @@ buttons.forEach((button) => {
     button.addEventListener("click", () => {
         switch(button.id){
             case "1":
-                console.log(playRound("Rock", getComputerChoice()));
+                console.log(playRound("Geodude", getComputerChoice()));
                 break;
             case "2":
-                console.log(playRound("Paper", getComputerChoice()));
+                console.log(playRound("Ditto", getComputerChoice()));
                 break; 
             case "3":
-                console.log(playRound("Scissors", getComputerChoice()));
+                console.log(playRound("Scizor", getComputerChoice()));
                 break; 
         };
     });
 });
 
 resetBtn.addEventListener("click", () => {
-    scores.forEach((score) => {
-        score.textContent = "0";
-    });
-
     buttons.forEach((button) => {
         button.disabled = false;
     });
 
+    playerHealth.style.width = "100%";
+    enemyHealth.style.width = "100%";
+
     playerScore = 0;
     computerScore = 0;
-    drawScore = 0;
 
     resetBtn.style.visibility = "hidden";
     resultsText.style.visibility = "hidden";
