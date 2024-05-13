@@ -4,9 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="./application.js"></script>
+    <script src="./application.js" defer></script>
+    <style>
+        #resetBtn {
+            visibility: hidden;
+        }
+    </style>
 </head>
 <body>
-    
+    <header>
+        <h1>Rock, Paper, Scissors!</h1>
+    </header>
+    <section id="buttonContainer">
+        <button id="1">Rock</button>
+        <button id="2">Paper</button>
+        <button id="3">Scissors</button>
+    </section>
+    <section>
+        <h2>Results</h2>
+        <h2>Overall Player Wins:</h2>
+        <p id="playerWins">0</p>
+        <h2>Overall Computer Wins:</h2>
+        <p id="computerWins">0</p>
+        <h3 id="roundResultText">Round result:</h3>
+        <div>
+            <h3>Player Score</h3>
+            <p id="playerNum" class="scoreNum">0</p>
+        </div>
+        <div>
+            <h3>Draws</h3>
+            <p id="drawNum" class="scoreNum">0</p>
+        </div>
+        <div>
+            <h3>Computer Score</h3>
+            <p id="comNum" class="scoreNum">0</p>
+        </div>
+        <h2 id="resultsText"></h2>
+        <button id="resetBtn">Reset</button>
+    </section>
 </body>
 </html>
